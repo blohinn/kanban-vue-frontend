@@ -2,7 +2,7 @@
   <div id="board">
 
     <div id="board-menu">
-      <create-column-form></create-column-form>
+      <create-column-form v-on:column-pushed="pushColumnToBoard"></create-column-form>
     </div>
 
     <div id="row">
@@ -41,6 +41,11 @@ export default {
           cards: []
         }
       ]
+    }
+  },
+  methods: {
+    pushColumnToBoard (event) {
+      this.columns.push(event.column)
     }
   }
 }
