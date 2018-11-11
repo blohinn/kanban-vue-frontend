@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="delete-card-btn">
+    <div class="delete-card-btn" v-on:click="removeCurrentCard">
       <span>×</span>
     </div>
     <p><b>id:</b> {{card.id}}</p>
@@ -15,6 +15,13 @@ export default {
     card: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    removeCurrentCard () {
+      // console.log(this.card.id)
+      // Make request to the server and if status 200 or 204 (no content):
+      this.$emit('card-removed', this.card.id)
     }
   }
 }

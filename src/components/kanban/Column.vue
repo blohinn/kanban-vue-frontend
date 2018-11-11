@@ -7,7 +7,7 @@
     </div>
 
     <div class="column-content">
-      <card v-for="card in column.cards" v-bind:key="card.id" v-bind:card="card"></card>
+      <card v-for="card in column.cards" v-bind:key="card.id" v-bind:card="card" v-on:card-removed="removeCardFromColumn"></card>
     </div>
 
     <create-card-form v-bind:columnId="column.id" v-on:card-pushed="pushCardToColumn"></create-card-form>
@@ -38,6 +38,14 @@ export default {
   methods: {
     pushCardToColumn (event) {
       this.column.cards.push(event.card)
+    },
+    removeCardFromColumn (event) {
+      for (let i = 0; i < this.column.cards.length; i++) {
+        if (this.column.cards[i].id === event) {
+          this.column.cards.splice(i, 1)
+          // console.log(this.column.cards[i])
+        }
+      }
     }
   }
 }

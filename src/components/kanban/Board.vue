@@ -28,23 +28,14 @@ export default {
           cards: [
             {
               id: 1,
-              body: 'Card 1'
-            },
-            {
-              id: 2,
-              body: 'Card 2'
+              body: 'Demo card'
             }
           ]
         },
         {
           id: 2,
           name: 'IN PROGRESS',
-          cards: [
-            {
-              id: 3,
-              body: 'Card 3'
-            }
-          ]
+          cards: []
         }
       ]
     }
