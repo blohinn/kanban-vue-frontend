@@ -1,16 +1,16 @@
 <template>
+
   <div class="column">
 
     <div class="column-header">
-      <p>IN PROGRESS</p>
+      <p>{{column.name}} ({{column.cards.length}})</p>
     </div>
 
     <div class="column-content">
-      <card></card>
-      <card></card>
+      <card v-for="card in column.cards" v-bind:key="card.id" v-bind:card="card"></card>
     </div>
 
-    <create-card-form></create-card-form>
+    <create-card-form v-bind:columnId="column.id" v-on:card-pushed="pushCardToColumn"></create-card-form>
 
   </div>
 </template>
@@ -24,9 +24,20 @@ export default {
     Card,
     CreateCardForm
   },
+  props: {
+    column: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
 
+    }
+  },
+  methods: {
+    pushCardToColumn (event) {
+      this.column.cards.push(event.card)
     }
   }
 }

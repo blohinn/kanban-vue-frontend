@@ -3,14 +3,20 @@
     <div class="delete-card-btn">
       <span>×</span>
     </div>
-    <p><b>id:</b> 123</p>
-    <p>Some card text</p>
+    <p><b>id:</b> {{card.id}}</p>
+    <p>{{card.body}}</p>
   </div>
 </template>
 
 <script>
 export default {
-
+  name: 'Card',
+  props: {
+    card: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 

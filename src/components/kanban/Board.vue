@@ -6,12 +6,7 @@
     </div>
 
     <div id="row">
-      <column></column>
-      <column></column>
-      <column></column>
-      <column></column>
-      <column></column>
-      <column></column>
+      <column v-for="(column, i) in columns" v-bind:key="i" v-bind:column="column"></column>
     </div>
 
   </div>
@@ -27,10 +22,30 @@ export default {
   data () {
     return {
       columns: [
-        1,
-        2,
-        3,
-        4
+        {
+          id: 1,
+          name: 'ON HOLD',
+          cards: [
+            {
+              id: 1,
+              body: 'Card 1'
+            },
+            {
+              id: 2,
+              body: 'Card 2'
+            }
+          ]
+        },
+        {
+          id: 2,
+          name: 'IN PROGRESS',
+          cards: [
+            {
+              id: 3,
+              body: 'Card 3'
+            }
+          ]
+        }
       ]
     }
   }

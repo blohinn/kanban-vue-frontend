@@ -9,9 +9,9 @@
 
     <template v-if="formIsOpen">
       <div class="add-card-form-open-state">
-        <textarea id="" cols="29" rows="3"></textarea>
+        <textarea v-model="card.body" cols="29" rows="3"></textarea>
         <br>
-        <button class="btn">Add new card</button>
+        <button class="btn" v-on:click="pushCardToColumn">Add new card</button>
         <span class="cancel-add-card-btn" v-on:click="formIsOpen = false">Cancel</span>
       </div>
     </template>
@@ -22,9 +22,34 @@
 <script>
 export default {
   name: 'CreateCardForm',
+  props: {
+    columnId: {
+      type: Number,
+      required: true
+    }
+  },
   data () {
     return {
-      formIsOpen: false
+      formIsOpen: false,
+      card: {
+        body: ''
+      }
+    }
+  },
+  methods: {
+    pushCardToColumn () {
+      // console.log(this.card.body)
+      // console.log(this.columnId)
+      // Make request to the server and if status 200:
+      this.$emit('card-pushed', {
+        card: {
+          id: Math.floor(Math.random() * 999) + 1, // From server response
+          body: this.card.body
+        },
+        columnId: this.columnId
+      })
+      this.card.body = ''
+      this.formIsOpen = false
     }
   }
 }
