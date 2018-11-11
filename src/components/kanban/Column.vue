@@ -10,15 +10,19 @@
       <card></card>
     </div>
 
+    <create-card-form></create-card-form>
+
   </div>
 </template>
 
 <script>
 import Card from '@/components/kanban/Card'
+import CreateCardForm from '@/components/kanban/CreateCardForm'
 export default {
   name: 'Column',
   components: {
-    Card
+    Card,
+    CreateCardForm
   },
   data () {
     return {
@@ -35,6 +39,7 @@ export default {
   margin-right: 50px;
   margin-bottom: 15px;
   width: 300px;
+  vertical-align: top;
 }
 
 .column:last-child {
@@ -58,5 +63,9 @@ export default {
 .column-content {
   background-color: #2f2f36;
   padding: 15px;
+}
+
+.create-card-form p {
+  margin: 0;
 }
 </style>
