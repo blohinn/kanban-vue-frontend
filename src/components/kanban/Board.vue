@@ -6,7 +6,7 @@
     </div>
 
     <div id="row">
-      <column v-for="(column, i) in columns" v-bind:key="i" v-bind:column="column"></column>
+      <column v-for="(column, i) in columns" v-bind:key="i" v-bind:column="column" v-on:column-removed="removeColumnFromBoard"></column>
     </div>
 
   </div>
@@ -46,6 +46,13 @@ export default {
   methods: {
     pushColumnToBoard (event) {
       this.columns.push(event.column)
+    },
+    removeColumnFromBoard (columnId) {
+      for (let i = 0; i < this.columns.length; i++) {
+        if (this.columns[i].id === columnId) {
+          this.columns.splice(i, 1)
+        }
+      }
     }
   }
 }
