@@ -3,7 +3,10 @@
   <div class="column">
 
     <div class="column-header">
-      <p>{{column.name}} ({{column.cards.length}})</p>
+      <div class="delete-column-btn" v-on:click="removeCurrentColumn">
+        <span>×</span>
+      </div>
+      <p>{{column.name}} ({{column.cards.length}}) </p>
     </div>
 
     <div class="column-content">
@@ -39,13 +42,18 @@ export default {
     pushCardToColumn (event) {
       this.column.cards.push(event.card)
     },
-    removeCardFromColumn (event) {
+    removeCardFromColumn (cardId) {
       for (let i = 0; i < this.column.cards.length; i++) {
-        if (this.column.cards[i].id === event) {
+        if (this.column.cards[i].id === cardId) {
           this.column.cards.splice(i, 1)
           // console.log(this.column.cards[i])
         }
       }
+    },
+    removeCurrentColumn () {
+      // console.log(this.column.id)
+      // Make request to the server and if status 200 or 204 (no content):
+      this.$emit('column-removed', this.column.id)
     }
   }
 }
@@ -66,6 +74,7 @@ export default {
 }
 
 .column-header {
+  position: relative;
   color: white;
   text-shadow: 0 0 4px #4b5263;
   text-transform: uppercase;
@@ -86,5 +95,16 @@ export default {
 
 .create-card-form p {
   margin: 0;
+}
+
+.delete-column-btn {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+}
+
+.delete-column-btn:hover {
+  color: white;
+  cursor: pointer;
 }
 </style>
