@@ -2,7 +2,7 @@
   <div id="board">
 
     <div id="board-menu">
-      <button class="btn">New Column</button>
+      <create-column-form></create-column-form>
     </div>
 
     <div id="row">
@@ -14,10 +14,13 @@
 
 <script>
 import Column from '@/components/kanban/Column'
+import CreateColumnForm from '@/components/kanban/CreateColumnForm'
+
 export default {
   name: 'Board',
   components: {
-    Column
+    Column,
+    CreateColumnForm
   },
   data () {
     return {
