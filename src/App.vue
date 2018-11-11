@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <p></p>
-    <ul>
-      <li></li>
-    </ul>
     <router-view />
   </div>
 </template>
@@ -20,12 +15,31 @@ export default {
 </script>
 
 <style>
+* {
+  font-family: Arial, sans-serif;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  height: 100%;
+}
+
+.btn {
+  padding: 7px;
+  border: none;
+  background-color: #616161;
+  color: #cfcfcf;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn:hover {
+  background-color: #505050;
 }
 </style>
