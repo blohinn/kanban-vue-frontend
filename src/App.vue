@@ -10,6 +10,12 @@ export default {
   name: 'App',
   data () {
     return {}
+  },
+  created () {
+    if (this.$cookies.get('accessToken')) {
+      this.$store.commit('setAccessToken', this.$cookies.get('accessToken'))
+      console.log('AccessToken loaded.')
+    }
   }
 }
 </script>
