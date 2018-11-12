@@ -10,7 +10,14 @@
     </div>
 
     <div class="column-content">
-      <card v-for="card in column.cards" v-bind:key="card.id" v-bind:card="card" v-on:card-removed="removeCardFromColumn"></card>
+
+      <Container @drop="onDrop" :group-name="'column'" :get-child-payload="getChildPayload">
+        <Draggable v-for="card in column.cards" :key="card.id">
+          <card v-bind:key="card.id" v-bind:card="card" v-on:card-removed="removeCardFromColumn"></card>
+        </Draggable>
+      </Container>
+
+      <!-- <card v-for="card in column.cards" v-bind:key="card.id" v-bind:card="card" v-on:card-removed="removeCardFromColumn"></card> -->
     </div>
 
     <create-card-form v-bind:columnId="column.id" v-on:card-pushed="pushCardToColumn"></create-card-form>
@@ -19,13 +26,19 @@
 </template>
 
 <script>
+import { Container, Draggable } from 'vue-smooth-dnd'
+import { applyDrag } from './utils.js'
+
 import Card from '@/components/kanban/Card'
 import CreateCardForm from '@/components/kanban/CreateCardForm'
+
 export default {
   name: 'Column',
   components: {
     Card,
-    CreateCardForm
+    CreateCardForm,
+    Container,
+    Draggable
   },
   props: {
     column: {
@@ -54,6 +67,16 @@ export default {
       // console.log(this.column.id)
       // Make request to the server and if status 200 or 204 (no content):
       this.$emit('column-removed', this.column.id)
+    },
+    onDrop: function (dropResult) {
+      this.column.cards = applyDrag(this.column.cards, dropResult)
+      // this.column.cards = collection
+      // this.hideAddACardTextarea()
+      // this[collection] = applyDrag(this[collection], dropResult)
+      // saveItems(collection, this[collection])
+    },
+    getChildPayload (index) {
+      return this.column.cards[index]
     }
   }
 }
@@ -90,7 +113,7 @@ export default {
 
 .column-content {
   background-color: #2f2f36;
-  padding: 15px;
+  padding: 5px 15px 10px 15px;
 }
 
 .create-card-form p {

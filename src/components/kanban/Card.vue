@@ -35,10 +35,7 @@ export default {
   padding: 5px 10px;
   white-space: normal;
   font-size: 16px;
-}
-
-.card:not(:last-child) {
-  margin-bottom: 15px;
+  margin-top: 10px;
 }
 
 .delete-card-btn {
