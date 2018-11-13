@@ -38,18 +38,28 @@ export default {
   },
   methods: {
     pushCardToColumn () {
-      // console.log(this.card.body)
-      // console.log(this.columnId)
       // Make request to the server and if status 200:
-      this.$emit('card-pushed', {
-        card: {
-          id: Math.floor(Math.random() * 999) + 1, // From server response
-          body: this.card.body
-        },
-        columnId: this.columnId
+      let vue = this
+      vue.$axiosBackendAuthorized.post('/api/kanban/card/column/' + vue.columnId, {
+        body: this.card.body,
+        // TODO Need fix on server. Column is not required because request contain column id
+        column: vue.columnId
+      }).then(response => {
+        console.log(response)
+        this.$emit('card-pushed', {
+          card: {
+            id: response.data.id,
+            body: response.data.body,
+            column: response.data.column
+          }
+        })
+
+        this.card.name = ''
+        this.formIsOpen = false
+      }).catch(function (error) {
+        console.log(error)
+        console.log(error.response)
       })
-      this.card.body = ''
-      this.formIsOpen = false
     }
   }
 }

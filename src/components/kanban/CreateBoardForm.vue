@@ -1,17 +1,17 @@
 <template>
-    <div class="create-board-form">
+  <div class="create-board-form">
 
-        <template v-if="!formIsOpen">
-            <button class="btn" v-on:click="formIsOpen = true">New Board</button>
-        </template>
+    <template v-if="!formIsOpen">
+      <button class="btn" v-on:click="formIsOpen = true">New Board</button>
+    </template>
 
-        <template v-if="formIsOpen">
-            <input type="text" v-model="board.name">
-            <button class="btn" v-on:click="pushNewBoard">New Board</button>
-            <span class="cancel-add-board-btn" v-on:click="formIsOpen = false">Cancel</span>
-        </template>
+    <template v-if="formIsOpen">
+      <input type="text" v-model="board.name">
+      <button class="btn" v-on:click="pushNewBoard">New Board</button>
+      <span class="cancel-add-board-btn" v-on:click="formIsOpen = false">Cancel</span>
+    </template>
 
-    </div>
+  </div>
 </template>
 
 <script>
@@ -28,15 +28,24 @@ export default {
   methods: {
     pushNewBoard () {
       // Make request to the server and if status 200:
-      this.$emit('board-pushed', {
-        board: {
-          id: Math.floor(Math.random() * 999) + 1, // From server response
-          name: this.board.name
-        }
-      })
+      let vue = this
+      vue.$axiosBackendAuthorized.post('/api/kanban/board/', {
+        name: this.board.name
+      }).then(response => {
+        console.log(response)
+        this.$emit('board-pushed', {
+          board: {
+            id: response.data.id,
+            name: response.data.name
+          }
+        })
 
-      this.board.name = ''
-      this.formIsOpen = false
+        this.board.name = ''
+        this.formIsOpen = false
+      }).catch(function (error) {
+        console.log(error)
+        console.log(error.response)
+      })
     }
   }
 }

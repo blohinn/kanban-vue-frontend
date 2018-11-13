@@ -66,14 +66,33 @@ export default {
     removeCurrentColumn () {
       // console.log(this.column.id)
       // Make request to the server and if status 200 or 204 (no content):
-      this.$emit('column-removed', this.column.id)
+      this.$axiosBackendAuthorized.delete('/api/kanban/column/' + this.column.id)
+        .then(response => {
+          console.log(response)
+          this.$emit('column-removed', this.column.id)
+        }).catch(function (error) {
+          console.log(error)
+          console.log(error.response)
+        })
     },
     onDrop: function (dropResult) {
       this.column.cards = applyDrag(this.column.cards, dropResult)
-      // this.column.cards = collection
-      // this.hideAddACardTextarea()
-      // this[collection] = applyDrag(this[collection], dropResult)
-      // saveItems(collection, this[collection])
+
+      let newCardColumnId = null
+      this.column.cards.forEach(card => {
+        if (card.id === dropResult.payload.id) {
+          newCardColumnId = this.column.id
+          // axios start
+          this.$axiosBackendAuthorized.patch('/api/kanban/card/' + card.id, {
+            column: newCardColumnId
+          }).then(response => {
+            console.log(response)
+          }).catch(function (error) {
+            console.log(error)
+            console.log(error.response)
+          })
+        }
+      })
     },
     getChildPayload (index) {
       return this.column.cards[index]

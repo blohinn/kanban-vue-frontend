@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     pushBoardToBoardList (event) {
-      this.boards.push(event.board)
+      this.boards.unshift(event.board)
     }
   },
   beforeCreate () {
