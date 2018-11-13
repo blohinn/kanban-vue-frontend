@@ -43,7 +43,8 @@ export default {
       vue.$axiosBackendAuthorized.post('/api/kanban/card/column/' + vue.columnId, {
         body: this.card.body,
         // TODO Need fix on server. Column is not required because request contain column id
-        column: vue.columnId
+        column: vue.columnId,
+        order: 999
       }).then(response => {
         console.log(response)
         this.$emit('card-pushed', {
