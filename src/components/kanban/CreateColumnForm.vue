@@ -52,16 +52,6 @@ export default {
         console.log(error)
         console.log(error.response)
       })
-      /** ******* */
-      // this.$emit('column-pushed', {
-      //   column: {
-      //     id: Math.floor(Math.random() * 999) + 1, // From server response
-      //     name: this.column.name,
-      //     cards: []
-      //   }
-      // })
-      // this.column.name = ''
-      // this.formIsOpen = false
     }
   }
 }
