@@ -82,15 +82,36 @@ export default {
       this.column.cards.forEach(card => {
         if (card.id === dropResult.payload.id) {
           newCardColumnId = this.column.id
-          // axios start
+          /* Saving new column id */
           this.$axiosBackendAuthorized.patch('/api/kanban/card/' + card.id, {
             column: newCardColumnId
           }).then(response => {
             console.log(response)
+
+            /* Start saving order */
+            let orderDict = {}
+
+            this.column.cards.forEach((card, index) => {
+              orderDict[card.id] = index
+            })
+
+            console.log(orderDict)
+
+            this.$axiosBackendAuthorized.put('/api/kanban/column/' + this.column.id + '/order', {
+              'ordered_dict': orderDict
+            }).then(response => {
+              console.log('sort:')
+              console.log(response)
+            }).catch(function (error) {
+              console.log(error)
+              console.log(error.response)
+            })
+            /* End saving order */
           }).catch(function (error) {
             console.log(error)
             console.log(error.response)
           })
+          /* End saving new column id */
         }
       })
     },
