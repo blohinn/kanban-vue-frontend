@@ -66,7 +66,14 @@ export default {
     removeCurrentColumn () {
       // console.log(this.column.id)
       // Make request to the server and if status 200 or 204 (no content):
-      this.$emit('column-removed', this.column.id)
+      this.$axiosBackendAuthorized.delete('/api/kanban/column/' + this.column.id)
+        .then(response => {
+          console.log(response)
+          this.$emit('column-removed', this.column.id)
+        }).catch(function (error) {
+          console.log(error)
+          console.log(error.response)
+        })
     },
     onDrop: function (dropResult) {
       this.column.cards = applyDrag(this.column.cards, dropResult)
