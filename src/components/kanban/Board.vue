@@ -24,23 +24,7 @@ export default {
   },
   data () {
     return {
-      columns: [
-        {
-          id: 1,
-          name: 'ON HOLD',
-          cards: [
-            {
-              id: 1,
-              body: 'Demo card'
-            }
-          ]
-        },
-        {
-          id: 2,
-          name: 'IN PROGRESS',
-          cards: []
-        }
-      ]
+      columns: []
     }
   },
   methods: {
@@ -67,6 +51,7 @@ export default {
       vue.columns = response.data.columns
     }).catch(function (error) {
       console.log(error)
+      console.log(error.response)
     })
   }
 }
