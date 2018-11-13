@@ -21,7 +21,14 @@ export default {
     removeCurrentCard () {
       // console.log(this.card.id)
       // Make request to the server and if status 200 or 204 (no content):
-      this.$emit('card-removed', this.card.id)
+      this.$axiosBackendAuthorized.delete('/api/kanban/card/' + this.card.id)
+        .then(response => {
+          console.log(response)
+          this.$emit('card-removed', this.card.id)
+        }).catch(function (error) {
+          console.log(error)
+          console.log(error.response)
+        })
     }
   }
 }
