@@ -27,6 +27,16 @@ export default {
     pushBoardToBoardList (event) {
       this.boards.push(event.board)
     }
+  },
+  beforeCreate () {
+    // eslint-disable-next-line
+    let vue = this
+    this.$axiosBackendAuthorized.get('/api/kanban/board/').then(response => {
+      console.log(response)
+      vue.boards = response.data
+    }).catch(function (error) {
+      console.log(error)
+    })
   }
 }
 </script>
@@ -35,5 +45,8 @@ export default {
 ul {
   list-style-type: none;
   padding: 0;
+}
+li {
+  padding-bottom: 10px;
 }
 </style>

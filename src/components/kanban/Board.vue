@@ -54,6 +54,20 @@ export default {
         }
       }
     }
+  },
+  beforeCreate () {
+    if (!this.$store.state.accessToken) {
+      window.location.replace('/')
+    }
+
+    // eslint-disable-next-line
+    let vue = this
+    this.$axiosBackendAuthorized.get('/api/kanban/board/' + vue.$route.params.id).then(response => {
+      console.log(response)
+      vue.columns = response.data.columns
+    }).catch(function (error) {
+      console.log(error)
+    })
   }
 }
 </script>
