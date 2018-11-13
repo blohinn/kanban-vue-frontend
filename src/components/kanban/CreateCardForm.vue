@@ -49,7 +49,8 @@ export default {
         this.$emit('card-pushed', {
           card: {
             id: response.data.id,
-            body: response.data.body
+            body: response.data.body,
+            column: response.data.column
           }
         })
 

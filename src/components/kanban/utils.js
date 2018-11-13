@@ -1,5 +1,5 @@
-export const applyDrag = (arr, dragResult) => {
-  const { removedIndex, addedIndex, payload } = dragResult
+export const applyDrag = (arr, dropResult) => {
+  const { removedIndex, addedIndex, payload } = dropResult
 
   if (removedIndex === null && addedIndex === null) return arr
   const result = [...arr]
