@@ -2,7 +2,7 @@
   <div id="board">
 
     <div id="board-menu">
-      <create-column-form v-on:column-pushed="pushColumnToBoard"></create-column-form>
+      <create-column-form v-bind:boardId="parseInt($route.params.id)" v-on:column-pushed="pushColumnToBoard"></create-column-form>
     </div>
 
     <div id="row">
